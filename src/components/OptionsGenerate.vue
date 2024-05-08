@@ -22,6 +22,7 @@
           name="numbers"
           checked="true"
           v-model="numbersSelected"
+          disabled
         />
         <label for="numbers" :class="numbersClass">Numbers</label>
       </div>
@@ -31,17 +32,18 @@
           name="specials"
           checked="true"
           v-model="specialsSelected"
+          disabled
         />
         <label for="specials" :class="specialsClass">Special Characters</label>
       </div>
     </div>
-    <button>Generate</button>
+    <button @click="setPassword(passwordOptions)">Generate</button>
   </div>
 </template>
 
 <script>
 import { defineComponent } from "vue"
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 
 export default defineComponent({
   data() {
@@ -63,16 +65,20 @@ export default defineComponent({
       }
       return ""
     },
+    passwordOptions() {
+      return {
+        length: this.$store.state.options.length,
+      }
+    },
     ...mapGetters(["options"]),
   },
   methods: {
     changeLength(e) {
       this.$store.state.options.length = e.target.value
     },
+    ...mapActions(["setPassword"]),
   },
 })
-
-console.log(this)
 </script>
 
 <style scoped>
@@ -176,6 +182,11 @@ console.log(this)
   color: var(--green-500);
 }
 
+/* TODO: remove it later */
+.option input:disabled ~ label {
+  color: var(--zinc-400);
+}
+
 .option input {
   accent-color: var(--green-500);
   margin-right: 4px;
@@ -188,7 +199,11 @@ console.log(this)
   display: grid;
   place-items: center;
   transition: all 150ms ease-in-out;
-  cursor: pointer;
+
+  /* TODO: change it later */
+  /* cursor: pointer; */
+  cursor: not-allowed;
+
   appearance: none;
   -webkit-appearance: none;
 }

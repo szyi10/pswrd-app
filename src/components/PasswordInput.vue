@@ -1,6 +1,8 @@
 <template>
   <section :class="sectionClass">
-    <p class="password--display" v-if="mode === 'display'">{{ password }}</p>
+    <p class="password--display" v-if="mode === 'display'">
+      {{ passwordOutput }}
+    </p>
     <input
       class="password--input"
       placeholder="Enter your password"
@@ -23,6 +25,13 @@ export default defineComponent({
       }
 
       return ""
+    },
+    passwordOutput() {
+      if (this.$store.state.password) {
+        return this.$store.state.password
+      }
+
+      return "Click 'Generate' button below!"
     },
     ...mapGetters(["password", "mode"]),
   },

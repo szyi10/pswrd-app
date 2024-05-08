@@ -9,7 +9,7 @@
       <button v-if="mode === 'input'" @click="displayMode">
         Generate Password
       </button>
-      <button v-if="mode === 'display'" @click="inputMode">
+      <button v-if="mode === 'display'" @click="inputMode" disabled>
         Check Password
       </button>
     </div>
@@ -40,6 +40,12 @@ header {
   border-radius: 10px;
   background: var(--element-background);
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* TODO: remove it later */
+header button:disabled {
+  color: var(--zinc-400);
+  cursor: not-allowed;
 }
 
 .header__text {
