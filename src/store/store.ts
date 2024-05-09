@@ -1,4 +1,4 @@
-import { createStore, Context, Payload } from "vuex"
+import { createStore, ActionContext, Payload } from "vuex"
 import { generatePassword, GeneratorTypes } from "../lib/generator"
 
 import rootGetters from "./getters"
@@ -7,15 +7,16 @@ interface ModeType {
   mode: "input" | "display"
 }
 
-interface State {
+interface State extends ModeType {
   password: string
   options: {
     length: number
     numbers: boolean
     specials: boolean
   }
-  mode: ModeType
 }
+
+type Context = ActionContext<State, State>
 
 const store = createStore<State>({
   state: {
@@ -34,7 +35,7 @@ const store = createStore<State>({
     setLength(state: State, payload: number) {
       state.options.length = payload
     },
-    setMode(state: State, payload: ModeType) {
+    setMode(state: State, payload: "input" | "display") {
       state.mode = payload
     },
   },

@@ -26,7 +26,7 @@ export default defineComponent({
 
       return ""
     },
-    passwordOutput() {
+    passwordOutput(): string {
       if (this.$store.state.password) {
         return this.$store.state.password
       }

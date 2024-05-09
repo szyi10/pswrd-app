@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue"
 import { mapGetters, mapActions } from "vuex"
 
@@ -73,8 +73,11 @@ export default defineComponent({
     ...mapGetters(["options"]),
   },
   methods: {
-    changeLength(e) {
-      this.$store.state.options.length = e.target.value
+    changeLength(e: Event) {
+      const element = e.target as HTMLInputElement
+      const value = element.value
+
+      this.$store.state.options.length = value
     },
     ...mapActions(["setPassword"]),
   },
