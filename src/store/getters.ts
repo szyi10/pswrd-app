@@ -1,27 +1,13 @@
-interface PaswordType {
-  password: string
-}
-
-interface OptionsType {
-  options: {
-    length: number
-    numbers: boolean
-    specials: boolean
-  }
-}
-
-interface ModeType {
-  mode: "input" | "display"
-}
+import { DisplayMode, Password, Options } from "../types"
 
 export default {
-  password(state: PaswordType) {
+  password(state: Password) {
     return state.password
   },
-  options(state: OptionsType) {
+  options(state: Options) {
     return state.options
   },
-  mode(state: ModeType) {
+  mode(state: DisplayMode) {
     return state.mode
   },
 }

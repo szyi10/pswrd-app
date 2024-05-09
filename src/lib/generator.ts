@@ -1,4 +1,4 @@
-export interface GeneratorTypes {
+export interface Generator {
   length: number
   numbers: boolean
   symbols: boolean
@@ -8,7 +8,7 @@ export const generatePassword = ({
   length,
   numbers = true,
   symbols = true,
-}: GeneratorTypes): string => {
+}: Generator): string => {
   let charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
   let password = ""
 

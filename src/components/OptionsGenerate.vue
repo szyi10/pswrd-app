@@ -7,8 +7,8 @@
     <input
       class="slider__input"
       type="range"
-      min="4"
-      max="16"
+      min="8"
+      max="24"
       :value="options.length"
       @input="changeLength"
     />
@@ -22,7 +22,6 @@
           name="numbers"
           checked="true"
           v-model="numbersSelected"
-          disabled
         />
         <label for="numbers" :class="numbersClass">Numbers</label>
       </div>
@@ -32,7 +31,6 @@
           name="specials"
           checked="true"
           v-model="specialsSelected"
-          disabled
         />
         <label for="specials" :class="specialsClass">Special Characters</label>
       </div>
@@ -66,8 +64,12 @@ export default defineComponent({
       return ""
     },
     passwordOptions() {
+      const options = this.options
+
       return {
-        length: this.$store.state.options.length,
+        length: options.length,
+        numbers: options.numbers,
+        symbols: options.specials,
       }
     },
     ...mapGetters(["options"]),
@@ -75,11 +77,19 @@ export default defineComponent({
   methods: {
     changeLength(e: Event) {
       const element = e.target as HTMLInputElement
-      const value = element.value
+      const value = parseInt(element.value)
 
       this.$store.state.options.length = value
     },
-    ...mapActions(["setPassword"]),
+    ...mapActions(["toggleNumbers", "toggleSpeicals", "setPassword"]),
+  },
+  watch: {
+    numbersSelected() {
+      this.toggleNumbers()
+    },
+    specialsSelected() {
+      this.toggleSpeicals()
+    },
   },
 })
 </script>
@@ -185,11 +195,6 @@ export default defineComponent({
   color: var(--green-500);
 }
 
-/* TODO: remove it later */
-.option input:disabled ~ label {
-  color: var(--zinc-400);
-}
-
 .option input {
   accent-color: var(--green-500);
   margin-right: 4px;
@@ -202,11 +207,7 @@ export default defineComponent({
   display: grid;
   place-items: center;
   transition: all 150ms ease-in-out;
-
-  /* TODO: change it later */
-  /* cursor: pointer; */
-  cursor: not-allowed;
-
+  cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
 }
