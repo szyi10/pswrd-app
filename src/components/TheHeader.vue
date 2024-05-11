@@ -43,7 +43,6 @@ header {
   margin: 0 10px;
 }
 
-/* TODO: remove it later */
 header button:disabled {
   color: var(--zinc-400);
   cursor: not-allowed;

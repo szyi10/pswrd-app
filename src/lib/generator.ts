@@ -13,7 +13,7 @@ export const generatePassword = ({
   let password = ""
 
   if (numbers) charset += "0123456789"
-  if (symbols) charset += "!@#$%^&*()_+~`|}{[]?></"
+  if (symbols) charset += `!@#$%^&*()_+|~-=\'{}[]:";<>?,./;`
 
   for (let i = 0; i < length; i++) {
     password += charset.charAt(Math.floor(Math.random() * charset.length))
