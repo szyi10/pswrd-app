@@ -9,7 +9,7 @@
       <button v-if="mode === 'input'" @click="displayMode">
         Generate Password
       </button>
-      <button v-if="mode === 'display'" @click="inputMode" disabled>
+      <button v-if="mode === 'display'" @click="inputMode">
         Check Password
       </button>
     </div>

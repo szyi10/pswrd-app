@@ -8,6 +8,8 @@
       placeholder="Enter your password"
       @focus="focused = true"
       @blur="focused = false"
+      @input="checkPassword(enterendPassword)"
+      v-model="enterendPassword"
       v-if="mode === 'input'"
     />
   </section>
@@ -15,9 +17,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import { mapGetters } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 export default defineComponent({
+  data() {
+    return {
+      focused: false,
+      enterendPassword: "",
+    }
+  },
   computed: {
     sectionClass() {
       if (this.focused) {
@@ -35,10 +43,8 @@ export default defineComponent({
     },
     ...mapGetters(["password", "mode"]),
   },
-  data() {
-    return {
-      focused: false,
-    }
+  methods: {
+    ...mapActions(["checkPassword"]),
   },
 })
 </script>

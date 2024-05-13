@@ -13,6 +13,13 @@ const store = createStore<State>({
       numbers: true,
       specials: true,
     },
+    checkedPassword: {
+      hasLength: false,
+      hasUppercase: false,
+      hasLowercase: false,
+      hasSpecials: false,
+      hasNumber: false,
+    },
     mode: "display",
   },
   mutations: rootMutations,

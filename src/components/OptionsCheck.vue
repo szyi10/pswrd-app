@@ -4,23 +4,38 @@
     <span :class="strength">{{ strengthText }}</span>
   </div>
   <div class="list">
-    <div class="requirement done">
+    <div
+      class="requirement"
+      :class="checkedPassword.hasLength ? 'done' : 'not'"
+    >
       <span></span>
       <p>At least 8 characters</p>
     </div>
-    <div class="requirement done">
+    <div
+      class="requirement"
+      :class="checkedPassword.hasUppercase ? 'done' : 'not'"
+    >
       <span></span>
       <p>At least 1 UPPERCASE letter</p>
     </div>
-    <div class="requirement done">
+    <div
+      class="requirement"
+      :class="checkedPassword.hasLowercase ? 'done' : 'not'"
+    >
       <span></span>
       <p>At least 1 lowercase letter</p>
     </div>
-    <div class="requirement not">
+    <div
+      class="requirement"
+      :class="checkedPassword.hasSpecials ? 'done' : 'not'"
+    >
       <span></span>
       <p>At least 1 special character</p>
     </div>
-    <div class="requirement not">
+    <div
+      class="requirement"
+      :class="checkedPassword.hasNumber ? 'done' : 'not'"
+    >
       <span></span>
       <p>At least 1 number</p>
     </div>
@@ -29,11 +44,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import { mapGetters } from "vuex"
 
 export default defineComponent({
   data() {
     return {
-      strength: this.getRandomStrength(),
+      strength: "very weak",
+      fullfilled: 0,
     }
   },
   computed: {
@@ -42,6 +59,7 @@ export default defineComponent({
         return this.strength.charAt(0).toUpperCase() + this.strength.slice(1)
       }
     },
+    ...mapGetters(["checkedPassword"]),
   },
   methods: {
     getRandomStrength() {
@@ -49,6 +67,40 @@ export default defineComponent({
       const randomNumber = Math.floor(Math.random() * strengths.length)
 
       return strengths[randomNumber]
+    },
+  },
+  watch: {
+    checkedPassword() {
+      this.fullfilled = 0
+
+      for (const key in this.checkedPassword) {
+        if (Object.prototype.hasOwnProperty.call(this.checkedPassword, key)) {
+          if (this.checkedPassword[key]) {
+            this.fullfilled++
+          }
+        }
+      }
+
+      switch (this.fullfilled) {
+        case 1:
+          this.strength = "weak"
+          break
+        case 2:
+          this.strength = "weak"
+          break
+        case 3:
+          this.strength = "medium"
+          break
+        case 4:
+          this.strength = "medium"
+          break
+        case 5:
+          this.strength = "strong"
+          break
+        default:
+          this.strength = "very weak"
+          break
+      }
     },
   },
 })

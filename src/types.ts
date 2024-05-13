@@ -14,4 +14,18 @@ export interface Options {
   }
 }
 
-export interface State extends DisplayMode, Password, Options {}
+export interface CheckedPassword {
+  checkedPassword: {
+    hasLength: boolean
+    hasUppercase: boolean
+    hasLowercase: boolean
+    hasSpecials: boolean
+    hasNumber: boolean
+  }
+}
+
+export interface State
+  extends DisplayMode,
+    Password,
+    Options,
+    CheckedPassword {}

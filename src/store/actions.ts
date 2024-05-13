@@ -23,6 +23,27 @@ export default {
   toggleSpeicals(context: Context) {
     context.commit("toggleSpeicals")
   },
+  checkPassword(context: Context, payload: string) {
+    const lengthRegex = /.{8,}/
+    const uppercaseRegex = /[A-Z]/
+    const lowercaseRegex = /[a-z]/
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/
+    const numberRegex = /[0-9]/
+
+    const hasLength = lengthRegex.test(payload)
+    const hasUppercase = uppercaseRegex.test(payload)
+    const hasLowercase = lowercaseRegex.test(payload)
+    const hasSpecials = specialCharRegex.test(payload)
+    const hasNumber = numberRegex.test(payload)
+
+    context.commit("checkPassword", {
+      hasLength,
+      hasUppercase,
+      hasLowercase,
+      hasSpecials,
+      hasNumber,
+    })
+  },
   displayMode(context: Context) {
     context.commit("setMode", "display")
   },

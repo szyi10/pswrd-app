@@ -1,5 +1,13 @@
 import { State } from "../types"
 
+type CheckPassword = {
+  hasLength: boolean
+  hasUppercase: boolean
+  hasLowercase: boolean
+  hasSpecials: boolean
+  hasNumber: boolean
+}
+
 export default {
   setPassword(state: State, payload: string) {
     state.password = payload
@@ -15,5 +23,8 @@ export default {
   },
   setMode(state: State, payload: "input" | "display") {
     state.mode = payload
+  },
+  checkPassword(state: State, payload: CheckPassword) {
+    state.checkedPassword = payload
   },
 }
